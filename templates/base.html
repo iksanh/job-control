@@ -1,7 +1,10 @@
+{%load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% if title %} {{title }} {% else %} Title  {% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <script src="{% static 'js/app.js'%}" defer></script>
 </head>
 <body>
 
