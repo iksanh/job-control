@@ -16,7 +16,7 @@
       {{ job.job_description }}
     </p>
     <p>
-        {%  if request.user.is_authenticated %}
+        {%  if request.user.is_authenticated and request.user == job.job_author %}
         <a href="{% url 'job-edit' job.job_id %}">Edit</a>
         <a href="{% url 'job-delete' job.job_id %}">Delete</a>
         {%else %}

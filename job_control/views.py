@@ -33,7 +33,9 @@ def create_job(request):
     elif request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save()
+            job = form.save(commit=False)
+            job.job_author = request.user
+            job.save()
             messages.success(request, 'New job has add successfully')
             return redirect('home')
         else:
@@ -42,13 +44,15 @@ def create_job(request):
 
 @login_required
 def edit_job(request, id):
-    post = get_object_or_404(Job, job_id=id)
+    queryset = Job.objects.filter(job_author = request.user)
+    job = get_object_or_404(queryset, job_id=id)
+
     if request.method =='GET':
-        context = {'form' : JobForm(instance=post), 'id' : id}
+        context = {'form' : JobForm(instance=job), 'id' : id}
         return render(request, 'jobs/job_form.html', context)
 
     if request.method == 'POST':
-        form = JobForm(request.POST, instance=post)
+        form = JobForm(request.POST, instance=job)
         if form.is_valid():
             form.save()
             messages.success(request, 'Edit data succesfully  ')
@@ -59,7 +63,8 @@ def edit_job(request, id):
 
 @login_required
 def delete_job(request, id):
-    job  = get_object_or_404(Job, job_id = id)
+    queryset = Job.objects.filter(job_author =  request.user)
+    job = get_object_or_404(queryset, job_id = id)
     context = {'job' : job}
 
     if request.method == 'GET':
