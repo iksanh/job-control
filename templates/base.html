@@ -9,10 +9,13 @@
 <body>
 <header>
     {% if request.user.is_authenticated %}
-    <span>Hi {{request.user.username | title }}</span>
-    <a href="{% url 'logout'%}">LOGOUT</a>
-    {% else %}
-    <a href="{% url 'login'%}">LOGIN</a>
+        <a href="{% url 'home' %}">My Job</a>
+        <a href="{% url 'job-create'%}">New Job</a>
+        <span>Hi {{request.user.username | title }}</span>
+        <a href="{% url 'logout'%}">LOGOUT</a>
+        {% else %}
+            <a href="{% url 'login'%}">LOGIN</a>
+            <a href="{% url 'register'%}">Register</a>
     {% endif %}
 </header>
 
