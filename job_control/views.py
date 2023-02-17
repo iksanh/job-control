@@ -1,6 +1,8 @@
+import django.contrib.auth.forms
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Job
 from .form import JobForm
@@ -23,6 +25,7 @@ posts = [
     }
 ]
 
+@login_required
 def create_job(request):
     if request.method == 'GET':
         context = {'form' : JobForm()}
@@ -37,6 +40,7 @@ def create_job(request):
             messages.error(request, 'Failed to add job')
             return render(request, 'jobs/job_form.html', {'form': form})
 
+@login_required
 def edit_job(request, id):
     post = get_object_or_404(Job, job_id=id)
     if request.method =='GET':
@@ -53,6 +57,7 @@ def edit_job(request, id):
             messages.error(request,'Please correct error input')
             return render(request, 'jobs/job_form.html', {'form' : form})
 
+@login_required
 def delete_job(request, id):
     job  = get_object_or_404(Job, job_id = id)
     context = {'job' : job}
@@ -65,6 +70,7 @@ def delete_job(request, id):
         return redirect('home')
 
 
+@login_required
 def home(request):
 
     jobs  = Job.objects.all()
