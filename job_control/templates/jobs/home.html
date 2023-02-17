@@ -3,14 +3,44 @@
 {% block content%}
 
 
-<h1>Dari Home</h1>
-<h2>Ambil data </h2>
-{% for post in posts %}
-<h2>{{ post.title }}</h2>
-<small>Published on {{ post.published_at }} by {{ post.author}}</small>
-<p>{{ post.content }}</p>
+<h1 class="text-3xl font-bold underline container ">
+    DAFTAR PEKERJAAN
+</h1>
+<a href="{% url 'job-create'%}">Add Job</a>
 
+
+<div class="flex justify-center">
+<table class="border-collapse border border-slate-400 outline-slate-300">
+  <thead>
+    <tr>
+      <th class="border border-slate-300">NO</th>
+      <th class="border border-slate-300">TUGAS</th>
+      <th class="border border-slate-300">DETAIL TUGAS</th>
+      <th class="border border-slate-300">PEMBUAT TUGAS</th>
+      <th class="border border-slate-300">TANGGAL DIBERIKAN</th>
+      <th class="border border-slate-300">AKSI</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for job in jobs %}
+    <tr>
+       <th class="border border-slate-300 ">{{forloop.counter}}</th>
+      <th class="border border-slate-300 ">{{ job.job_title }}</th>
+      <th class="border border-slate-300 ">{{ job.job_description }}</th>
+      <th class="border border-slate-300 ">{{ job.job_author}}</th>
+      <th class="border border-slate-300 ">{{ job.job_publish }}</th>
+      <th class="border border-slate-300 ">
+        <a href="{% url 'job-edit' job.job_id %}">Edit</a>
+        <a href="{% url 'job-delete' job.job_id %}">Delete</a>
+      </th>
+    </tr>
 {% endfor %}
+  </tbody>
+
+</table>
+</div>
+
+
 {% endblock %}
 
 
