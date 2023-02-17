@@ -7,6 +7,14 @@
 <!--    <script src="{% static 'js/app.js'%}" defer></script>-->
 </head>
 <body>
+<header>
+    {% if request.user.is_authenticated %}
+    <span>Hi {{request.user.username | title }}</span>
+    <a href="{% url 'logout'%}">LOGOUT</a>
+    {% else %}
+    <a href="{% url 'login'%}">LOGIN</a>
+    {% endif %}
+</header>
 
 {% if messages %}
     <div class="messages">
