@@ -30,8 +30,12 @@
       <th class="border border-slate-300 ">{{ job.job_author}}</th>
       <th class="border border-slate-300 ">{{ job.job_publish }}</th>
       <th class="border border-slate-300 ">
+        {%  if request.user.is_authenticated %}
         <a href="{% url 'job-edit' job.job_id %}">Edit</a>
         <a href="{% url 'job-delete' job.job_id %}">Delete</a>
+        {%else %}
+        Please Login
+        {% endif %}
       </th>
     </tr>
 {% endfor %}
