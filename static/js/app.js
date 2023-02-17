@@ -1,3 +1,3 @@
-setTimeout(() => {
-    alert('Welcome');
-}, 3000)
+//setTimeout(() => {
+//    alert('Welcome');
+//}, 3000)
