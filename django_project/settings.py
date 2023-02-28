@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'job_control',  # add module job
     'users',  # add module users
-    'employee' # add modul employee
+    'employee',  # add modul employee
+    'rest_framework' # add rest framework django
+
 ]
 
 MIDDLEWARE = [
