@@ -75,7 +75,7 @@ def delete_job(request, id):
         return redirect('home')
 
 
-@login_required
+
 def home(request):
 
     jobs  = Job.objects.all()

@@ -1,0 +1,21 @@
+{% extends 'base.html'%} {% block content %}
+
+<div class="mx-24 mt-8 py-4 px-4 shadow-lg">
+  <h2 class="">
+    {% if id %} edit {% else %} add {% endif %} Job {{form.job_title}}
+  </h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %} {% for field in form %}
+    <div class="">
+      <label class="block">{{field.label}}</label>
+      {{field}}
+    </div>
+
+    {%endfor %}
+
+    <input type="submit" value="Save" />
+  </form>
+</div>
+
+{% endblock %} {%comment%} {{ form.as_div}} {% endcomment%}

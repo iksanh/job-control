@@ -1,53 +1,49 @@
 {%load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% if title %} {{title }} {% else %} Title  {% endif %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% if title %} {{title }} {% else %} Title {% endif %}</title>
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+    {% endcomment %}
     <script src="https://cdn.tailwindcss.com"></script>
 
-<!--    <script src="{% static 'js/app.js'%}" defer></script>-->
-</head>
-<body>
-<header class="bg-slate-50 py-4 px-9">
-    <div class="container flex justify-between">
+    <!--    <script src="{% static 'js/app.js'%}" defer></script>-->
+  </head>
+  <body>
+    {% if request.path %}
+    <header class="bg-slate-50 py-4 px-24 shadow-md">
+      <div class="container flex justify-between">
         <a href="#" class="tx">LAPAK MANDIRI</a>
         <nav class="flex justify-between">
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'home' %}">My Job</a>
-                <a href="{% url 'job-create'%}">New Job</a>
-                <span>Hi {{request.user.username | title }}</span>
-                <a href="{% url 'logout'%}">LOGOUT</a>
-            {% else %}
-                <a href="{% url 'login'%}">LOGIN</a>
-                <a href="{% url 'register'%}">Register</a>
-            {% endif %}
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'home' %}" class="px-8">My Job</a>
+          <a href="{% url 'job-create'%}" class="px-8">New Job</a>
+          <span>Hi {{request.user.username | title }}</span>
+          <a href="{% url 'logout'%}" class="px-8">Logout</a>
+          {% else %}
+          <a href="{% url 'login'%}" class="px-8">Login</a>
+          <a href="{% url 'register'%}" class="px-8">Register</a>
+          {% endif %}
         </nav>
-
-    </div>
-</header>
-<main>
-    <div class="container">
-            {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %}">
-                            {{message}}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% block content%}
-            {% endblock %}
-    </div>
-</main>
-<footer>
-    <div class="container">
-
-    </div>
-</footer>
-
-
-</body>
+      </div>
+    </header>
+    {% endif %}
+    <main>
+      <div class="container px-24 mt-6">
+        {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+          <div
+            class="alert {% if message.tags %} alert-{{message.tags}} {% endif %}"
+          >
+            {{message}}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} {% block content%} {% endblock %}
+      </div>
+    </main>
+    <footer></footer>
+  </body>
 </html>
